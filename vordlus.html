@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avaleht</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<nav>
+  <a href="index.html">Avaleht</a>
+  <a href="leafletJS/leafletJS.html">LeafletJS</a>
+  <a href="openLayers/openLayers.html">OpenLayers</a>
+  <a href="vordlus.html">Võrdlus</a>
+
+</nav>
+<main>
+  <h1>LeafletJS ja OpenLayers võrdlus</h1>
+
+  <h2>LeafletJS</h2>
+  <p>
+    LeafletJS osutus tänu lakoonilisele API-le lihtsamaks omandada – kaardi
+    algseadistamine ja punktide lisamine võtab sõna otseses mõttes vaid paar
+    rida. Ainus raskus seisnes selles, et raamatukogu ise ei oska KML-faile
+    lugeda – tuli lisada täiendav plugin leaflet-omnivore.
+  </p>
+
+  <h2>OpenLayers</h2>
+  <p>
+    OpenLayers tundus API poolest kohmakam, kuid omab sisseehitatud KML-tuge
+    ol.format.KML kaudu – eraldi pistikprogrammi pole vaja. Peamine
+    probleem, millega ma kokku puutusin, oli see, et punktid (kool ja kodu)
+    ei kuvatud kaardil, kuigi marsruudi joon ja kodu polügoon olid
+    nähtavad. Põhjuseks osutus asjaolu, et OpenLayers üritab vaikimisi
+    laadida KML-faili stiilides määratud ikoone (viited välistele
+    piltidele) ja kui see laadimine ei õnnestu, jääb punkt nähtamatuks.
+    Lahenduseks oli automaatsete stiilide väljalülitamine
+    (extractStyles: false) ja oma stiilide käsitsi määramine koodis,
+    sõltuvalt objekti geomeetria tüübist.
+  </p>
+
+  <h2>Järeldus</h2>
+  <p>
+    Oma kogemustele tuginedes valiksin LeafletJS-i lihtsamate projektide
+    jaoks, kus kaart on veebilehe abielement ja andmeallikate
+    peenreguleerimine pole vajalik. OpenLayers sobib paremini, kui
+    töötatakse otse erinevate geodataformaatidega (nt KML) ilma vajaduseta
+    otsida kolmanda osapoole pistikprogramme, kuid see nõuab rohkem koodi
+    ja stiilide ning kihtide sisemise ülesehituse mõistmist.
+  </p>
+</main>
+
+<footer>
+  &copy; Oleksandra Ryshniak - 2026
+</footer>
+</body>
+</html>

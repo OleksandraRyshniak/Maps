@@ -24,9 +24,9 @@ const kmlLayer = new ol.layer.Vector({
     source: kmlSource,
     style: function (feature) {
         const type = feature.getGeometry().getType();
-        if (type === 'Point') return pointStyle;
-        if (type === 'LineString') return lineStyle;
-        if (type === 'Polygon') return polygonStyle;
+        if (type === 'Point' || type === 'MultiPoint') return pointStyle;
+        if (type === 'LineString' || type === 'MultiLineString') return lineStyle;
+        if (type === 'Polygon' || type === 'MultiPolygon') return polygonStyle;
         return null;
     },
 });
@@ -42,8 +42,15 @@ const map = new ol.Map({
         center: ol.proj.fromLonLat([24.79, 59.42]),
         zoom: 12,
     }),
+    controls: ol.control.defaults.defaults().extend([
+        new ol.control.ScaleLine(),
+        new ol.control.FullScreen(),
+    ]),
 });
 
 kmlSource.once('featuresloadend', function () {
-    map.getView().fit(kmlSource.getExtent(), { padding: [50, 50, 50, 50] });
+    const extent = kmlSource.getExtent();
+    if (!ol.extent.isEmpty(extent)) {
+        map.getView().fit(extent, { padding: [50, 50, 50, 50] });
+    }
 });
